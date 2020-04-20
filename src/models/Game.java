@@ -1,8 +1,7 @@
 package models;
 
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Game {
     private int componentCount;
@@ -74,8 +73,30 @@ public class Game {
     public void run() {
         setInitialize(init);
 
-        LocalTime timeOfInvocation = LocalTime.now();
-        this.time = timeOfInvocation;
+        //TODO: The timer task needs to be fixed - it's not working as it should
+        TimerTask task = new TimerTask(){
+            public void run() {
+
+                LocalTime timeOfInvocation = LocalTime.now();
+                time = timeOfInvocation;
+
+                for(GameComponent gameComponent: gameComponents) {
+                    gameComponent.update(time);
+                }
+
+                for(DrawableGameComponent drawableGameComponent: dGComponents) {
+                    drawableGameComponent.update(time);
+                };
+            }
+        };
+        Timer timer = new Timer("Timer");
+
+        Date now = new Date();
+
+        for(int i= 0; i<5; i++) {
+            long delay = 1000L;
+            timer.schedule(task, now, delay);
+        }
 
         setTerminate(term);
     }
@@ -88,20 +109,14 @@ public class Game {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        for(GameComponent gameComponent: gameComponents) {
-            gameComponent.update(time);
-        }
-
-        for(DrawableGameComponent drawableGameComponent: dGComponents) {
-            drawableGameComponent.update(time);
-        }
     }
 
     public void setTerminate(FP term) {
         try {
             if(term == FP.TERMINATE) {
                 System.out.println("Terminating game");
+                gameComponents.removeAll(gameComponents);
+                dGComponents.removeAll(dGComponents);
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -51,8 +51,8 @@ public class DrawableGameComponent extends GameComponent{
 
     // Member Methods
     public void update(LocalTime time) {
-    DrawableGameComponent drawableGameComponent = new DrawableGameComponent();
-        time = LocalTime.now();
+        DrawableGameComponent drawableGameComponent = new DrawableGameComponent();
+
         System.out.println("ID: " + drawableGameComponent.getId() + " Updated @ " + time);
 
         int x = drawableGameComponent.getX();
@@ -74,7 +74,6 @@ public class DrawableGameComponent extends GameComponent{
         }
 
         drawableGameComponent.draw();
-
         drawableGameComponent.changeDirection();
     }
 
@@ -105,6 +104,7 @@ public class DrawableGameComponent extends GameComponent{
     }
 
     private void changeDirection() {
+        //TODO: Fix this method - right now it isn't changing direction randomly as expected
         DrawableGameComponent drawableGameComponent = new DrawableGameComponent();
         List<Direction> directions = new ArrayList<>();
         directions.add(Direction.DOWN);
