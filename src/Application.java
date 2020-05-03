@@ -10,7 +10,7 @@ public class Application {
 
         Game game = new Game();
 
-        GameComponent gameComponent = new GameComponent(0, 0);
+        GameComponent gameComponent = new GameComponent();
 
         List<GameComponent> gameComponents = new ArrayList<>();
         gameComponents.add(gameComponent);

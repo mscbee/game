@@ -1,9 +1,7 @@
 package models;
 
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class DrawableGameComponent extends GameComponent{
     public Direction direction;
@@ -51,30 +49,43 @@ public class DrawableGameComponent extends GameComponent{
 
     // Member Methods
     public void update(LocalTime time) {
-        DrawableGameComponent drawableGameComponent = new DrawableGameComponent();
+        TimerTask task = new TimerTask(){
+            public void run() {
+                DrawableGameComponent drawableGameComponent = new DrawableGameComponent();
 
-        System.out.println("ID: " + drawableGameComponent.getId() + " Updated @ " + time);
+                System.out.println("ID: " + drawableGameComponent.getId() + " Updated @ " + time);
 
-        int x = drawableGameComponent.getX();
+                int x = drawableGameComponent.getX();
 
-        if(drawableGameComponent.getDirection() == Direction.LEFT) {
-            drawableGameComponent.setX(x--);
-        }
-        else if(drawableGameComponent.getDirection() == Direction.RIGHT) {
-            drawableGameComponent.setX(x++);
-        }
+                if(drawableGameComponent.getDirection() == Direction.LEFT) {
+                    drawableGameComponent.setX(x--);
+                }
+                else if(drawableGameComponent.getDirection() == Direction.RIGHT) {
+                    drawableGameComponent.setX(x++);
+                }
 
-        int y = drawableGameComponent.getY();
+                int y = drawableGameComponent.getY();
 
-        if(drawableGameComponent.getDirection() == Direction.UP) {
-            drawableGameComponent.setY(y++);
-        }
-        else if(drawableGameComponent.getDirection() == Direction.DOWN) {
-            drawableGameComponent.setY(y--);
-        }
+                if(drawableGameComponent.getDirection() == Direction.UP) {
+                    drawableGameComponent.setY(y++);
+                }
+                else if(drawableGameComponent.getDirection() == Direction.DOWN) {
+                    drawableGameComponent.setY(y--);
+                }
 
-        drawableGameComponent.draw();
-        drawableGameComponent.changeDirection();
+                drawableGameComponent.draw();
+                drawableGameComponent.changeDirection();
+            }
+        };
+
+        Timer timer = new Timer("Timer");
+
+        Date now = new Date();
+
+//        for(int i= 0; i<5; i++) {
+            long delay = 1000L;
+            timer.schedule(task, now, delay);
+//        }
     }
 
     private void draw() {

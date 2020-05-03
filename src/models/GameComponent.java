@@ -4,7 +4,7 @@ import java.time.LocalTime;
 
 public class GameComponent {
 
-    private int id;
+    private static int id = 0;
     private static int instances = 0;
 
     // Constructors
@@ -36,8 +36,6 @@ public class GameComponent {
 
     // Member Functions
     public void update(LocalTime time){
-        GameComponent gameComponent = new GameComponent();
-        time = LocalTime.now();
-        System.out.println("ID: " + gameComponent.getId() + " Updated @ " + time);
+
     };
 }

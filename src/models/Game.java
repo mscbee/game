@@ -10,8 +10,6 @@ public class Game {
 
     private FP fp;
 
-    private static final int TICKS_1000MS = 0;
-
     // Constructors
     public Game() {
 
@@ -42,10 +40,6 @@ public class Game {
         this.fp = fp;
     }
 
-    public static int getTicks1000ms() {
-        return TICKS_1000MS;
-    }
-
     // Member Functions
     private List<GameComponent> gameComponents = new ArrayList<>();
 
@@ -73,30 +67,16 @@ public class Game {
     public void run() {
         setInitialize(init);
 
-        //TODO: The timer task needs to be fixed - it's not working as it should
-        TimerTask task = new TimerTask(){
-            public void run() {
+            LocalTime timeOfInvocation = LocalTime.now();
+            time = timeOfInvocation;
 
-                LocalTime timeOfInvocation = LocalTime.now();
-                time = timeOfInvocation;
-
-                for(GameComponent gameComponent: gameComponents) {
-                    gameComponent.update(time);
-                }
-
-                for(DrawableGameComponent drawableGameComponent: dGComponents) {
-                    drawableGameComponent.update(time);
-                };
+            for(GameComponent gameComponent: gameComponents) {
+                gameComponent.update(time);
             }
-        };
-        Timer timer = new Timer("Timer");
 
-        Date now = new Date();
-
-        for(int i= 0; i<5; i++) {
-            long delay = 1000L;
-            timer.schedule(task, now, delay);
-        }
+            for(DrawableGameComponent drawableGameComponent: dGComponents) {
+                drawableGameComponent.update(time);
+            };
 
         setTerminate(term);
     }
